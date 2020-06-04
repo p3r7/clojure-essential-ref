@@ -6,6 +6,8 @@ It needs a CIDER session to be launched to perform fully-qualified symbol resolu
 
 It behaves similarly to `cider-clojuredocs-web`, including the default proposal of _symbol-at-point_. As such it's a nice companion to the latter (alongside `cider-doc`).
 
+For more context, read the [accompanying blog post](https://www.eigenbahn.com/2020/06/04/emacs-clojure-essential-ref).
+
 
 ## Installation
 
