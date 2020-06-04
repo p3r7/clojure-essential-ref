@@ -1,10 +1,10 @@
-;;; clojure-essential-ref.el --- cider-doc to "Clojure, The Essential Reference" -*- lexical-binding: t; -*-
+;;; clojure-essential-ref.el --- Allows to cider-doc to "Clojure, The Essential Reference" -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020 Jordan Besly
 ;;
 ;; Version: 0.1.0
 ;; URL: https://github.com/p3r7/clojure-essential-ref
-;; Package-Requires: ()
+;; Package-Requires: ((emacs "24"))
 ;;
 ;; SPDX-License-Identifier: MIT
 
@@ -30,7 +30,8 @@
 
 ;; BOOK INDEX
 
-(defvar clojure-essential-ref--base-url "https://livebook.manning.com/book/clojure-the-essential-reference")
+(defvar clojure-essential-ref--base-url "https://livebook.manning.com/book/clojure-the-essential-reference"
+  "Base URL for the \"livebook\" version of the book.")
 
 (defvar clojure-essential-ref--index
   '(
@@ -534,7 +535,7 @@
     ("re-matches" . (:url "/chapter-19/v-29/91" :short-name "19.10"))
     ("re-find" . (:url "/chapter-19/v-29/91" :short-name "19.10"))
 
-    ;; muration & side-effects
+    ;; mutation & side-effects
     ("transient" . (:url "/chapter-20/v-29/3" :short-name "20.1"))
     ("persistent!" . (:url "/chapter-20/v-29/3" :short-name "20.1"))
     ("conj!" . (:url "/chapter-20/v-29/3" :short-name "20.1"))
@@ -648,14 +649,17 @@
     ("clojure.java.io/copy" . (:url "/chapter-22/v-29/210" :short-name "22.8.10"))
     ("clojure.java.io/make-parents" . (:url "/chapter-22/v-29/216" :short-name "22.8.11"))
     ("clojure.java.io/delete-file" . (:url "/chapter-22/v-29/219" :short-name "22.8.12"))
-    ("clojure.java.io/as-relative-path" . (:url "/chapter-22/v-29/222" :short-name "22.8.13"))))
+    ("clojure.java.io/as-relative-path" . (:url "/chapter-22/v-29/222" :short-name "22.8.13")))
+  "Index of all the known symbols and their (URL) location in the book.")
 
 
 
 ;; COMMAND
 
 (defun clojure-essential-ref (&optional arg)
-  "Open Clojure documentation for symbol from book Clojure Essential Ref in the web browser.
+  "Open Clojure documentation for symbol in the default web browser.
+
+Book \"Clojure, The Essential Reference\" is used as a documentation source.
 
 Prompts for the symbol to use, or uses the symbol at point, depending on
 the value of `cider-prompt-for-symbol'.  With prefix arg ARG, does the
@@ -667,7 +671,7 @@ opposite of what that option dictates."
            #'clojure-essential-ref-browse))
 
 (defun clojure-essential-ref--resolve-symbol (symbol)
-  "Gets the fully-qualified name for SYMBOL"
+  "Gets the fully-qualified name for SYMBOL."
   (let* ((info (cider-var-info symbol))
          (ns (nrepl-dict-get info "ns"))
          (name (nrepl-dict-get info "name")))
@@ -681,7 +685,7 @@ opposite of what that option dictates."
 ;; BROWSE
 
 (defun clojure-essential-ref-browse (symbol)
-  "Open doc in Clojure Essential Ref for SYMBOL"
+  "Open doc in Clojure Essential Ref for SYMBOL."
   (setq symbol (clojure-essential-ref--resolve-symbol symbol))
   (let ((props (cdr (assoc symbol clojure-essential-ref--index))))
     (unless props
@@ -690,7 +694,7 @@ opposite of what that option dictates."
 
 
 (defun clojure-essential-ref--build-url (props)
-  "Build url according to the symbol PROPS from clojure-essential-ref--index"
+  "Build url according to the symbol PROPS from clojure-essential-ref--index."
   (concat clojure-essential-ref--base-url (plist-get props :url)))
 
 
