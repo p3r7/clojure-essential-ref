@@ -31,7 +31,7 @@ Optionally, to get the offline ebook browsing mode (depends on [nov.el](https://
 ```el
 (use-package clojure-essential-ref-nov
   :ensure nil
-  :after clojure-essential-ref
+  :after (nov clojure-essential-ref)
   :init
   (setq clojure-essential-ref-nov-epub-path "~/Downloads/Clojure_The_Essential_Reference_v29_MEAP.epub"))
 ```
