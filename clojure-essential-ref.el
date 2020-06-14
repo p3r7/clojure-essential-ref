@@ -11,9 +11,15 @@
 ;;; Commentary:
 ;;
 ;; Provides command `clojure-essential-ref' to browse the documentation for
-;; symbol in book "Clojure, The Essential Reference" in a web browser.
+;; symbol in book "Clojure, The Essential Reference".
 ;;
 ;; Works similarly to `cider-clojuredocs-web'.
+;;
+;; By default, browse online in a web browser ("liveBook" version) as if
+;; calling explicit command `clojure-essential-ref-web'.
+;;
+;; Using sibling package `clojure-essential-ref-nov' one could browse
+;; offline to the ebook version (command `clojure-essential-ref-nov').
 
 ;;; Code:
 
@@ -28,10 +34,18 @@
 
 
 
-;; BOOK INDEX
+;; CONFIG
+
+(defvar clojure-essential-ref-default-browse-fn #'clojure-essential-ref-browse-web)
 
 (defvar clojure-essential-ref--base-url "https://livebook.manning.com/book/clojure-the-essential-reference"
   "Base URL for the \"livebook\" version of the book.")
+
+(defvar clojure-essential-ref--build-url-fn #'clojure-essential-ref--build-url-from-section-id)
+
+
+
+;; BOOK INDEX
 
 (defvar clojure-essential-ref--index
   '(
@@ -652,14 +666,12 @@
     ("clojure.java.io/as-relative-path" . (:url "/chapter-22/v-29/222" :section "22.8.13")))
   "Index of all the known symbols and their (URL) location in the book.")
 
-(defvar clojure-essential-ref--build-url-fn #'clojure-essential-ref--build-url-from-section-id)
-
 
 
-;; COMMAND
+;; COMMANDS
 
 (defun clojure-essential-ref (&optional arg)
-  "Open Clojure documentation for symbol in the default web browser.
+  "Open Clojure documentation for symbol.
 
 Book \"Clojure, The Essential Reference\" is used as a documentation source.
 
@@ -668,9 +680,38 @@ the value of `cider-prompt-for-symbol'.  With prefix arg ARG, does the
 opposite of what that option dictates."
   (interactive "P")
   (cider-ensure-connected)
-  (funcall (cider-prompt-for-symbol-function arg)
-           "Doc for"
-           #'clojure-essential-ref-browse))
+
+  (if (called-interactively-p 'any)
+      (funcall (cider-prompt-for-symbol-function arg)
+               "Doc for"
+               clojure-essential-ref-default-browse-fn)
+    (unless arg
+      (error "Need to pass an argument when called non-interactively"))
+    (funcall clojure-essential-ref-default-browse-fn arg)))
+
+(defun clojure-essential-ref-web (&optional arg)
+  "Open Clojure documentation for symbol in the default web browser.
+
+Online version of book \"Clojure, The Essential Reference\" is
+used as a documentation source.
+
+Prompts for the symbol to use, or uses the symbol at point, depending on
+the value of `cider-prompt-for-symbol'.  With prefix arg ARG, does the
+opposite of what that option dictates."
+  (interactive "P")
+  (let ((clojure-essential-ref-default-browse-fn #'clojure-essential-ref-browse-web))
+    (if (called-interactively-p 'any)
+        (call-interactively #'clojure-essential-ref nil (vector arg))
+      (funcall #'clojure-essential-ref arg))))
+
+
+
+;; LOOKUP
+
+(defun clojure-essential-ref--get-props (symbol)
+  "Get props (section id...) for SYMBOL."
+  (setq symbol (clojure-essential-ref--resolve-symbol symbol))
+  (cdr (assoc symbol clojure-essential-ref--index)))
 
 (defun clojure-essential-ref--resolve-symbol (symbol)
   "Gets the fully-qualified name for SYMBOL."
@@ -686,23 +727,23 @@ opposite of what that option dictates."
 
 ;; BROWSE
 
-(defun clojure-essential-ref-browse (symbol)
-  "Open doc in Clojure Essential Ref for SYMBOL."
-  (setq symbol (clojure-essential-ref--resolve-symbol symbol))
-  (let ((props (cdr (assoc symbol clojure-essential-ref--index))))
+(defun clojure-essential-ref-browse-web (symbol)
+  "Open doc in Clojure Essential Ref for SYMBOL in web browser."
+  (let ((props (clojure-essential-ref--get-props symbol)))
     (unless props
       (error "Couldn't find reference to %s in book index" symbol))
     (browse-url (clojure-essential-ref--build-url props))))
 
 (defun clojure-essential-ref--build-url (props)
+  "Build url according to the symbol PROPS from clojure-essential-ref--index."
   (funcall clojure-essential-ref--build-url-fn props))
 
 (defun clojure-essential-ref--build-url-from-raw-url-path (props)
-  "Build url according to the symbol PROPS from clojure-essential-ref--index."
+  "Build url according to the url suffix in the symbol PROPS from clojure-essential-ref--index."
   (concat clojure-essential-ref--base-url (plist-get props :url)))
 
 (defun clojure-essential-ref--build-url-from-section-id (props)
-  "Build url according to the symbol PROPS from clojure-essential-ref--index."
+  "Build url according to the section id in the symbol PROPS from clojure-essential-ref--index."
   (let* ((section (plist-get props :section))
          (chapter (car (split-string section "\\."))))
     (concat clojure-essential-ref--base-url "/chapter-" chapter "/section-" section)))
