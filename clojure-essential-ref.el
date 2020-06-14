@@ -105,7 +105,7 @@
     ("&env" . (:url "/chapter-4/v-29/66" :section "4.1.3")) ; NB: implicit arg
     ("macroexpand" . (:url "/chapter-4/v-29/103" :section "4.2"))
     ("macroexpand-1" . (:url "/chapter-4/v-29/103" :section "4.2"))
-    ("macroexpand-all" . (:url "/chapter-4/v-29/103" :section "4.2"))
+    ("clojure.walk/macroexpand-all" . (:url "/chapter-4/v-29/103" :section "4.2"))
     ("quote" . (:url "/chapter-4/v-29/131" :section "4.3"))
     ("gensym" . (:url "/chapter-4/v-29/156" :section "4.4"))
     ("definline" . (:url "/chapter-4/v-29/183" :section "4.5"))
