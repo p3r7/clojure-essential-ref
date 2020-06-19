@@ -96,9 +96,9 @@ opposite of what that option dictates."
 (defun clojure-essential-ref-nov-browse (symbol)
   "Open doc in Clojure Essential Ref for SYMBOL in local ebook."
   (unless clojure-essential-ref-nov-epub-path
-    (error "Path of ebook (var `clojure-essential-ref-nov-epub-path') needs to be configured."))
+    (error "Path of ebook (var `clojure-essential-ref-nov-epub-path') needs to be configured"))
   (unless (file-exists-p clojure-essential-ref-nov-epub-path)
-    (error "Configured Path of ebook (\"%s\", var `clojure-essential-ref-nov-epub-path') does not exist." clojure-essential-ref-nov-epub-path))
+    (error "Configured Path of ebook (\"%s\", var `clojure-essential-ref-nov-epub-path') does not exist" clojure-essential-ref-nov-epub-path))
 
   (let ((props (clojure-essential-ref--get-props symbol)))
     (unless props
