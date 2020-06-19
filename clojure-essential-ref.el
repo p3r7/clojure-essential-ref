@@ -1,4 +1,4 @@
-;;; clojure-essential-ref.el --- Allows to cider-doc to "Clojure, The Essential Reference" -*- lexical-binding: t; -*-
+;;; clojure-essential-ref.el --- Cider-doc to "Clojure, The Essential Reference" -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020 Jordan Besly
 ;;

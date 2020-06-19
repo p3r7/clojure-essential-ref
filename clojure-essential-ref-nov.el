@@ -1,4 +1,4 @@
-;;; clojure-essential-ref-nov.el --- Allows to cider-doc to EPUB version of "Clojure, The Essential Reference" -*- lexical-binding: t; -*-
+;;; clojure-essential-ref-nov.el --- Cider-doc to "Clojure, The Essential Reference" (EPUB) -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020 Jordan Besly
 ;;
@@ -18,7 +18,7 @@
 ;;
 ;; This package is a child package of `clojure-essential-ref'.
 ;;
-;; You can make command `clojure-essential-ref' browse to the EPUB version (instead of the online "liveBook") by putting this in your emacs init:
+;; You can make command `clojure-essential-ref' browse to the EPUB version (instead of the online "liveBook") by putting this in your Emacs init:
 ;;
 ;; (setq clojure-essential-ref-default-browse-fn #'clojure-essential-ref-nov-browse)
 
