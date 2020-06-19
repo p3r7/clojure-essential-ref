@@ -58,7 +58,7 @@
   "Get ebook url for SECTION from table of content."
   (with-current-buffer (clojure-essential-ref-nov--buffer)
     (nov-goto-toc)
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (search-forward section)
     (get-text-property (point) 'shr-url)))
 
