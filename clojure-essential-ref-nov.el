@@ -4,7 +4,7 @@
 ;;
 ;; Version: 0.1.0
 ;; URL: https://github.com/p3r7/clojure-essential-ref
-;; Package-Requires: ((emacs "24")(dash "2.16.0")(nov "0.3.1"))
+;; Package-Requires: ((emacs "24")(dash "2.16.0")(nov "0.3.1")(clojure-essential-ref "0.1.0"))
 ;;
 ;; SPDX-License-Identifier: MIT
 
