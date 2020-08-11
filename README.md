@@ -6,7 +6,7 @@ Emacs packages providing commands to browse the Clojure documentation of a symbo
  - `clojure-essential-ref-web`: browse online in the web version of the book (_liveBook_)
  - `clojure-essential-ref-nov`: browse offline in a local ebook (provided by optional sibling package `clojure-essential-ref-nov`, depends on [nov.el](https://depp.brause.cc/nov.el/))
 
-They require a CIDER session to be launched to perform fully-qualified symbol resolution.
+They require a CIDER session to be launched to perform fully-qualified symbol resolution. Likewise, the source file must be known to CIDER. So, when adding a new source file during interactive development your might need to re-evaluate a `require` of this source file or even `cider-eval-buffer` it.
 
 They behave similarly to `cider-clojuredocs-web`, including the default proposal of _symbol-at-point_. They are a nice companion to the latter (alongside `cider-doc`).
 
