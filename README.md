@@ -87,4 +87,4 @@ For convenience sake, you can bind it to a keyboard shortcut:
 
 This code uses form feeds (`^L` character) as separators.
 
-Package [form-feed](https://github.com/wasamasa/form-feed) makes them appear as intended.
+Either package [form-feed](https://github.com/wasamasa/form-feed) or [page-break-lines](https://github.com/purcell/page-break-lines) makes them appear as intended.
