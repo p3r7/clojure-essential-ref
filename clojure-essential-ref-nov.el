@@ -74,6 +74,7 @@
 
 ;; COMMAND
 
+;;;###autoload
 (defun clojure-essential-ref-nov (&optional arg)
   "Open Clojure documentation for symbol in local ebook.
 
