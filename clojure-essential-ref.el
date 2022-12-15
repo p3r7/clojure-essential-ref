@@ -670,6 +670,7 @@
 
 ;; COMMANDS
 
+;;;###autoload
 (defun clojure-essential-ref (&optional arg)
   "Open Clojure documentation for symbol.
 
@@ -689,6 +690,7 @@ opposite of what that option dictates."
       (error "Need to pass an argument when called non-interactively"))
     (funcall clojure-essential-ref-default-browse-fn arg)))
 
+;;;###autoload
 (defun clojure-essential-ref-web (&optional arg)
   "Open Clojure documentation for symbol in the default web browser.
 
